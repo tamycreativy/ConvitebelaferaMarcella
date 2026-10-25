@@ -109,65 +109,62 @@ button,input,select{font:inherit;color:inherit}
 .music[aria-pressed="false"] .off{display:block}
 .music:focus-visible{outline:3px solid var(--gold-light);outline-offset:2px}
 
-/* ---------- janelas (RSVP e localização) ---------- */
-.overlay{
-  position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;
-  background:rgba(30,6,12,.72);overflow-y:auto;
-  opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s;
+/* ---------- páginas de confirmação e localização ---------- */
+.stage{container-type:inline-size}
+.ttl{
+  position:absolute;left:27%;right:27%;top:16.1%;height:6.8%;
+  display:grid;place-items:center;text-align:center;
+  font-family:var(--display);font-weight:700;font-size:3.1cqw;line-height:1.08;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;
+  color:var(--wine);text-shadow:0 1px 0 rgba(255,244,214,.7);
 }
-.overlay.open{opacity:1;visibility:visible;transition:opacity .35s ease,visibility 0s}
-.card{
-  position:relative;width:min(100%,380px);padding:30px 24px 24px;text-align:center;
-  border-radius:18px;border:2px solid var(--gold);
-  background:
-    radial-gradient(120% 80% at 50% 0%,rgba(255,255,255,.45),rgba(255,255,255,0) 60%),
-    linear-gradient(180deg,#f7ead0 0%,#e8d09b 100%);
-  box-shadow:0 0 0 4px rgba(94,18,32,.9),0 0 0 5px var(--gold),0 24px 60px rgba(10,0,4,.65);
-  transform:translateY(14px) scale(.97);transition:transform .35s ease;
+.panel{
+  position:absolute;left:19%;right:19%;top:27.5%;bottom:20%;
+  display:flex;flex-direction:column;justify-content:center;gap:3.4cqw;
+  color:var(--wine);text-align:center;
 }
-.overlay.open .card{transform:none}
-.card .orn{display:block;margin:0 auto 6px;color:var(--gold);font-size:18px;letter-spacing:.6em;text-indent:.6em}
-.card h2{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:23px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--wine)}
-.card p{margin:0 0 16px;font-size:20px;line-height:1.3;font-weight:600;color:#4a1220}
-.card .place{font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:.04em;color:var(--wine);margin:6px 0 4px}
-.card .when{font-style:italic;font-size:21px;margin:0 0 6px}
-.rule{height:1px;margin:12px auto 16px;width:70%;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-
-form{display:grid;gap:14px;text-align:left}
-label,.legend{display:block;font-family:var(--display);font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--wine);margin-bottom:5px}
-input[type=text]{
-  width:100%;min-height:48px;padding:8px 14px;border-radius:10px;
-  border:1.5px solid #a98a45;background:rgba(255,250,236,.85);
-  font-size:20px;font-weight:600;color:var(--wine);
+.panel[hidden]{display:none}
+.panel .lb{
+  display:block;margin:0 0 1.2cqw;font-family:var(--display);font-weight:700;font-size:2.7cqw;letter-spacing:.16em;text-transform:uppercase;color:var(--wine);text-align:left;
 }
-input[type=text]::placeholder{color:#a98a85;font-weight:500}
-input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
-.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.panel input[type=text]{
+  width:100%;min-height:11cqw;padding:1cqw 3.4cqw;border-radius:2.4cqw;
+  border:1.5px solid #b48a3c;background:rgba(255,248,230,.55);
+  font-family:var(--serif);font-size:5cqw;font-weight:700;color:var(--wine);
+  box-shadow:inset 0 1px 3px rgba(94,18,32,.18);
+}
+.panel input[type=text]::placeholder{color:rgba(94,18,32,.45);font-weight:600}
+.panel input[type=text]:focus{outline:2px solid rgba(94,18,32,.55);outline-offset:1px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:2.4cqw}
 .choice{position:relative}
 .choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
 .choice span{
-  display:flex;align-items:center;justify-content:center;text-align:center;min-height:50px;padding:6px 8px;border-radius:10px;
-  border:1.5px solid #a98a45;background:rgba(255,250,236,.7);font-size:18px;font-weight:700;line-height:1.1;
+  display:flex;align-items:center;justify-content:center;text-align:center;min-height:11cqw;padding:1cqw 1.6cqw;border-radius:2.4cqw;
+  border:1.5px solid #b48a3c;background:rgba(255,248,230,.45);
+  font-family:var(--serif);font-size:4.1cqw;font-weight:700;line-height:1.05;white-space:nowrap;
 }
-.choice input:checked+span{background:linear-gradient(180deg,#7d1b2e,var(--wine));color:var(--gold-light);border-color:var(--wine)}
-.choice input:focus-visible+span{outline:3px solid rgba(94,18,32,.55);outline-offset:2px}
-.stepper{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.choice input:checked+span{background:linear-gradient(180deg,#7d1b2e,var(--wine-deep));color:var(--gold-light);border-color:var(--gold)}
+.choice input:focus-visible+span{outline:2px solid rgba(94,18,32,.7);outline-offset:2px}
+.stepper{display:flex;align-items:center;justify-content:center;gap:5cqw}
 .stepper button{
-  width:48px;height:48px;border-radius:50%;border:1.5px solid #a98a45;background:rgba(255,250,236,.8);
-  font-size:26px;line-height:1;font-weight:700;color:var(--wine);cursor:pointer;padding:0;
+  width:11cqw;height:11cqw;border-radius:50%;border:1.5px solid #b48a3c;background:rgba(255,248,230,.55);
+  font-size:6.4cqw;line-height:1;font-weight:700;color:var(--wine);cursor:pointer;padding:0;
 }
-.stepper output{flex:1;text-align:center;font-size:26px;font-weight:700}
-.stepper button:focus-visible{outline:3px solid rgba(94,18,32,.55);outline-offset:2px}
-.err{margin:-6px 0 0;color:#9b1c2e;font-size:17px;font-weight:700;min-height:0}
-
-.actions{display:grid;gap:10px;margin-top:6px}
+.stepper output{min-width:12cqw;text-align:center;font-family:var(--display);font-size:7cqw;font-weight:700}
+.stepper button:focus-visible{outline:2px solid rgba(94,18,32,.7);outline-offset:2px}
+.err{margin:0;color:#9b1c2e;font-size:4cqw;font-weight:700}
+.acts{display:grid;gap:2.4cqw;margin-top:1cqw}
 .btn{
-  display:flex;align-items:center;justify-content:center;min-height:50px;padding:8px 20px;border-radius:999px;
-  font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;min-height:11.5cqw;padding:1cqw 5cqw;border-radius:999px;
+  font-family:var(--display);font-weight:700;font-size:3.2cqw;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;
 }
-.btn.primary{border:1px solid var(--gold);color:var(--gold-light);background:linear-gradient(180deg,#7d1b2e,var(--wine-deep));box-shadow:0 6px 16px rgba(60,8,18,.4)}
-.btn.ghost{border:1.5px solid #a98a45;background:transparent;color:var(--wine)}
-.btn:focus-visible{outline:3px solid var(--wine);outline-offset:2px}
+.btn.primary{border:1px solid var(--gold);color:var(--gold-light);background:linear-gradient(180deg,#7d1b2e,var(--wine-deep));box-shadow:0 .8cqw 2cqw rgba(60,8,18,.35)}
+.btn.ghost{border:1.5px solid #b48a3c;background:transparent;color:var(--wine)}
+.btn:focus-visible{outline:2px solid var(--wine);outline-offset:2px}
+.orn{color:#b48a3c;font-size:4.4cqw;letter-spacing:.6em;text-indent:.6em}
+.big{font-family:var(--display);font-weight:700;font-size:6.6cqw;line-height:1.15;letter-spacing:.05em;text-transform:uppercase}
+.soft{font-family:var(--serif);font-size:5.4cqw;font-weight:700;line-height:1.25;margin:0}
+.soft.it{font-style:italic;font-weight:600}
+.rule{height:1px;width:60%;margin:0 auto;background:linear-gradient(90deg,transparent,#b48a3c,transparent)}
 
 .screen:not(.active) *,.screen:not(.active) *::after{animation-play-state:paused!important}
 
@@ -217,35 +214,27 @@ input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
   </div>
 </section>
 
-<!-- música -->
-<button class="music" id="music" type="button" aria-pressed="true" aria-label="Pausar música" hidden>
-  <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3" fill="currentColor"/><circle cx="17" cy="16" r="3" fill="currentColor"/></svg>
-  <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3" fill="currentColor"/><circle cx="17" cy="16" r="3" fill="currentColor"/><path d="M3 3l18 18"/></svg>
-</button>
-<audio id="audio" src="assets/musica.m4a" loop preload="auto"></audio>
-
-<!-- janela: confirmar presença -->
-<div class="overlay" id="dlg-rsvp" aria-hidden="true">
-  <div class="card" role="dialog" aria-modal="true" aria-labelledby="rsvp-title">
-    <!-- formulário -->
-    <div id="rsvp-form-wrap">
-      <span class="orn" aria-hidden="true">✦ ✦ ✦</span>
-      <h2 id="rsvp-title">Confirmar presença</h2>
-      <div class="rule"></div>
-      <form id="rsvp-form" novalidate>
+<!-- 5 · confirmar presença -->
+<section class="screen" id="rsvp" aria-hidden="true">
+  <div class="bg" style="background-image:url(assets/formulario.jpg)"></div>
+  <div class="stage">
+    <img src="assets/formulario.jpg" alt="" width="941" height="1672" decoding="async">
+    <h2 class="ttl" id="rsvp-ttl">Confirmar presença</h2>
+    <div class="panel" id="rsvp-form-wrap">
+      <form id="rsvp-form" novalidate style="display:contents">
         <div>
-          <label for="rsvp-nome">Seu nome</label>
+          <label class="lb" for="rsvp-nome">Seu nome</label>
           <input type="text" id="rsvp-nome" name="nome" placeholder="Nome e sobrenome" autocomplete="name" maxlength="60">
         </div>
         <div>
-          <span class="legend" id="lg-resp">Você vai?</span>
+          <span class="lb" id="lg-resp">Você vai?</span>
           <div class="choices" role="radiogroup" aria-labelledby="lg-resp">
             <label class="choice"><input type="radio" name="resp" value="sim" checked><span>Sim, eu vou!</span></label>
             <label class="choice"><input type="radio" name="resp" value="nao"><span>Não poderei ir</span></label>
           </div>
         </div>
         <div id="qtd-wrap">
-          <span class="legend" id="lg-qtd">Quantas pessoas (com você)?</span>
+          <span class="lb" id="lg-qtd">Quantas pessoas, com você?</span>
           <div class="stepper" role="group" aria-labelledby="lg-qtd">
             <button type="button" id="qtd-minus" aria-label="Diminuir">−</button>
             <output id="qtd" aria-live="polite">1</output>
@@ -253,41 +242,52 @@ input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
           </div>
         </div>
         <p class="err" id="rsvp-err" role="alert" hidden>Escreva seu nome para continuar.</p>
-        <div class="actions">
+        <div class="acts">
           <button class="btn primary" type="submit">Enviar confirmação</button>
-          <button class="btn ghost" type="button" data-close>Fechar</button>
+          <button class="btn ghost" type="button" data-back>Voltar</button>
         </div>
       </form>
     </div>
-    <!-- agradecimento -->
-    <div id="rsvp-thanks" hidden>
+    <div class="panel" id="rsvp-thanks" hidden>
       <span class="orn" aria-hidden="true">✦ ✦ ✦</span>
-      <h2 id="thanks-title">Que alegria!</h2>
+      <div class="big" id="thanks-title">Que alegria!</div>
       <div class="rule"></div>
-      <p id="thanks-text"></p>
-      <div class="actions">
+      <p class="soft" id="thanks-text"></p>
+      <div class="acts">
         <a class="btn primary" id="thanks-wa" target="_blank" rel="noopener noreferrer" href="#" hidden>Avisar no WhatsApp</a>
-        <button class="btn ghost" type="button" data-close>Fechar</button>
+        <button class="btn ghost" type="button" data-back>Voltar ao convite</button>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- janela: localização -->
-<div class="overlay" id="dlg-map" aria-hidden="true">
-  <div class="card" role="dialog" aria-modal="true" aria-labelledby="map-title">
-    <span class="orn" aria-hidden="true">✦ ✦ ✦</span>
-    <h2 id="map-title">Localização</h2>
-    <div class="rule"></div>
-    <div class="place" id="map-place">Palácio das Festas</div>
-    <p class="when" id="map-addr" hidden></p>
-    <p class="when">18 de dezembro · às 18h</p>
-    <div class="actions">
-      <a class="btn primary" id="map-open" target="_blank" rel="noopener noreferrer" href="#">Abrir no mapa</a>
-      <button class="btn ghost" type="button" data-close>Fechar</button>
+<!-- 6 · localização -->
+<section class="screen" id="map" aria-hidden="true">
+  <div class="bg" style="background-image:url(assets/formulario.jpg)"></div>
+  <div class="stage">
+    <img src="assets/formulario.jpg" alt="" width="941" height="1672" decoding="async">
+    <h2 class="ttl">Localização</h2>
+    <div class="panel">
+      <span class="orn" aria-hidden="true">✦ ✦ ✦</span>
+      <div class="soft it">O festejo será no</div>
+      <div class="big" id="map-place">Palácio das Festas</div>
+      <p class="soft" id="map-addr" hidden></p>
+      <div class="rule"></div>
+      <p class="soft it" id="map-when">18 de dezembro · às 18h</p>
+      <div class="acts">
+        <a class="btn primary" id="map-open" target="_blank" rel="noopener noreferrer" href="#">Abrir no mapa</a>
+        <button class="btn ghost" type="button" data-back>Voltar</button>
+      </div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- música -->
+<button class="music" id="music" type="button" aria-pressed="true" aria-label="Pausar música" hidden>
+  <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3" fill="currentColor"/><circle cx="17" cy="16" r="3" fill="currentColor"/></svg>
+  <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3" fill="currentColor"/><circle cx="17" cy="16" r="3" fill="currentColor"/><path d="M3 3l18 18"/></svg>
+</button>
+<audio id="audio" src="assets/musica.m4a" loop preload="auto"></audio>
 
 <script>
 (function(){
@@ -302,9 +302,9 @@ input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
   };
 
   var $=function(s){return document.querySelector(s)};
-  var screens={cover:$('#cover'),video:$('#video'),info:$('#info'),gifts:$('#gifts')};
+  var screens={cover:$('#cover'),video:$('#video'),info:$('#info'),gifts:$('#gifts'),rsvp:$('#rsvp'),map:$('#map')};
   var vid=$('#vid'),audio=$('#audio'),musicBtn=$('#music'),skip=$('#skip');
-  var current='cover',started=false,wantMusic=false,lastFocus=null,openOverlay=null;
+  var current='cover',started=false,wantMusic=false,lastFocus=null;
 
   /* troca de tela */
   function go(name){
@@ -320,7 +320,7 @@ input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
   go('cover');
 
   /* pré-carrega as próximas telas */
-  ['assets/informacoes.jpg','assets/presentes.jpg'].forEach(function(src){var i=new Image();i.src=src});
+  ['assets/informacoes.jpg','assets/presentes.jpg','assets/formulario.jpg'].forEach(function(src){var i=new Image();i.src=src});
 
   /* ====== música (continua tocando durante todo o convite) ====== */
   function setMusicUI(playing){
@@ -382,41 +382,20 @@ input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
   $('#btn-gifts').addEventListener('click',function(){go('gifts')});
   $('#btn-back').addEventListener('click',function(){go('info')});
 
-  /* ====== janelas ====== */
-  function openDlg(el,focusSel){
-    lastFocus=document.activeElement;openOverlay=el;
-    el.classList.add('open');el.setAttribute('aria-hidden','false');
-    setTimeout(function(){var f=el.querySelector(focusSel);if(f)f.focus()},60);
-  }
-  function closeDlg(){
-    if(!openOverlay)return;
-    openOverlay.classList.remove('open');openOverlay.setAttribute('aria-hidden','true');
-    openOverlay=null;
-    if(lastFocus&&lastFocus.focus)lastFocus.focus();
-  }
-  document.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',closeDlg)});
-  document.querySelectorAll('.overlay').forEach(function(o){o.addEventListener('click',function(e){if(e.target===o)closeDlg()})});
-  document.addEventListener('keydown',function(e){
-    if(!openOverlay)return;
-    if(e.key==='Escape'){closeDlg();return}
-    if(e.key==='Tab'){
-      var f=[].filter.call(openOverlay.querySelectorAll('button,a[href],input,select'),function(n){return !n.disabled&&n.offsetParent!==null&&n.type!=='hidden'});
-      if(!f.length)return;
-      var i=f.indexOf(document.activeElement),first=f[0],last=f[f.length-1];
-      if(e.shiftKey&&(i<=0)){e.preventDefault();last.focus()}
-      else if(!e.shiftKey&&(i===f.length-1||i<0)){e.preventDefault();first.focus()}
-    }
-  });
+  /* botões "Voltar" das páginas de confirmação e localização */
+  document.querySelectorAll('[data-back]').forEach(function(b){b.addEventListener('click',function(){go('info')})});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&(current==='rsvp'||current==='map'||current==='gifts'))go('info')});
 
   /* ====== localização ====== */
   var q=CONFIG.local+(CONFIG.endereco?', '+CONFIG.endereco:'');
   $('#map-open').href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
   $('#map-place').textContent=CONFIG.local;
   if(CONFIG.endereco){var a=$('#map-addr');a.textContent=CONFIG.endereco;a.hidden=false}
-  $('#btn-map').addEventListener('click',function(){openDlg($('#dlg-map'),'#map-open')});
+  $('#btn-map').addEventListener('click',function(){go('map')});
+  $('#map-when').textContent=CONFIG.data+' · às '+CONFIG.hora;
 
   /* ====== confirmar presença (RSVP dentro do convite) ====== */
-  var rsvp=$('#dlg-rsvp'),form=$('#rsvp-form'),nome=$('#rsvp-nome'),err=$('#rsvp-err');
+  var form=$('#rsvp-form'),nome=$('#rsvp-nome'),err=$('#rsvp-err');
   var qtdEl=$('#qtd'),qtdWrap=$('#qtd-wrap'),qtd=1;
   function setQtd(n){qtd=Math.max(1,Math.min(10,n));qtdEl.textContent=qtd}
   $('#qtd-minus').addEventListener('click',function(){setQtd(qtd-1)});
@@ -428,8 +407,8 @@ input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
   nome.addEventListener('input',function(){err.hidden=true});
 
   $('#btn-confirm').addEventListener('click',function(){
-    $('#rsvp-thanks').hidden=true;$('#rsvp-form-wrap').hidden=false;err.hidden=true;
-    openDlg(rsvp,'#rsvp-nome');
+    $('#rsvp-thanks').hidden=true;$('#rsvp-form-wrap').hidden=false;$('#rsvp-ttl').textContent='Confirmar presença';err.hidden=true;
+    go('rsvp');
   });
 
   form.addEventListener('submit',function(e){
@@ -452,8 +431,7 @@ input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
     $('#thanks-text').textContent=texto;
     var wa=$('#thanks-wa');
     if(CONFIG.whatsapp){wa.href='https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent(msg);wa.hidden=false}else{wa.hidden=true}
-    $('#rsvp-form-wrap').hidden=true;$('#rsvp-thanks').hidden=false;
-    var f=wa.hidden?$('#rsvp-thanks [data-close]'):wa;if(f)f.focus();
+    $('#rsvp-form-wrap').hidden=true;$('#rsvp-thanks').hidden=false;$('#rsvp-ttl').textContent='Obrigada!';
   });
 })();
 </script>
