@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2a0b12">
+<title>Convite · Marcella · 13 anos</title>
+<meta property="og:title" content="Convite · Marcella · 13 anos">
+<meta property="og:description" content="Entre páginas, rosas e encantos, uma nova história está prestes a começar. Abra o convite.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ratio:941/1672;
+  --wine:#5e1220;
+  --wine-deep:#3a0a14;
+  --navy:#1b2547;
+  --gold:#c9a24b;
+  --gold-light:#ecd08a;
+  --parch:#f3e3bd;
+  --parch-deep:#e2c88f;
+  --display:'Cinzel',Georgia,serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%;overflow:hidden;background:#2a0b12;overscroll-behavior:none;-webkit-text-size-adjust:100%}
+body{font-family:var(--serif);color:var(--wine);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button,input,select{font:inherit;color:inherit}
+
+/* ---------- telas ---------- */
+.screen{
+  position:fixed;inset:0;overflow:hidden;
+  opacity:0;visibility:hidden;
+  transition:opacity .8s ease,visibility 0s linear .8s;
+}
+.screen.active{opacity:1;visibility:visible;transition:opacity .8s ease,visibility 0s}
+/* fundo desfocado só aparece quando a tela é mais larga que o convite (tablet / computador) */
+.bg{display:none;position:absolute;inset:-6%;background-size:cover;background-position:center;filter:blur(26px) brightness(.8);transform:scale(1.08)}
+@media (min-aspect-ratio:5628/10000){.bg{display:block}}
+.stage{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:calc(100vh * .5628);
+  width:calc(100dvh * .5628);
+  aspect-ratio:var(--ratio);
+}
+.stage>img,.stage>video{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;user-select:none;-webkit-user-drag:none}
+
+/* ---------- capa ---------- */
+#cover{cursor:pointer}
+.glow{
+  position:absolute;left:54%;top:47%;width:44%;aspect-ratio:1;transform:translate(-50%,-50%);
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,226,150,.55) 0%,rgba(255,200,110,.18) 40%,rgba(255,200,110,0) 70%);
+  animation:glow 3.4s ease-in-out infinite;
+}
+@keyframes glow{0%,100%{opacity:.2;transform:translate(-50%,-50%) scale(.9)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+.tap{
+  position:absolute;left:54.2%;top:71.3%;width:41%;height:5.4%;transform:translate(-50%,-50%);
+  border-radius:10px;pointer-events:none;
+  box-shadow:0 0 0 0 rgba(255,225,150,.0);
+  animation:tap 2.8s ease-in-out infinite;
+}
+@keyframes tap{0%,100%{box-shadow:0 0 6px 0 rgba(255,225,150,.15)}50%{box-shadow:0 0 22px 6px rgba(255,225,150,.6)}}
+
+/* ---------- vídeo ---------- */
+#video{background:#1a060b}
+.skip{
+  position:fixed;left:50%;transform:translateX(-50%);
+  bottom:calc(18px + env(safe-area-inset-bottom,0px));
+  min-height:44px;padding:8px 24px;border-radius:999px;
+  border:1px solid rgba(236,208,138,.7);background:rgba(42,11,18,.55);
+  color:var(--gold-light);font-family:var(--display);font-weight:500;font-size:14px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;
+  opacity:0;transition:opacity .6s ease;
+}
+.skip.show{opacity:.9}
+.skip:focus-visible{outline:3px solid var(--gold-light);outline-offset:2px}
+
+/* ---------- botões sobre a imagem ---------- */
+.hot{
+  position:absolute;left:var(--x);top:var(--y);width:15.5%;aspect-ratio:1;
+  transform:translate(-50%,-50%);border-radius:50%;border:0;padding:0;margin:0;
+  background:transparent;cursor:pointer;display:block;text-decoration:none;
+}
+.hot::after{
+  content:"";position:absolute;inset:-4%;border-radius:50%;pointer-events:none;
+  border:2px solid rgba(201,162,75,.95);
+  opacity:0;animation:ring 3.4s ease-out infinite;animation-delay:var(--d,0s);
+}
+@keyframes ring{0%{opacity:0;transform:scale(.85)}22%{opacity:.95}100%{opacity:0;transform:scale(1.25)}}
+.hot:active{background:rgba(201,162,75,.25)}
+.hot:focus-visible{outline:3px solid var(--wine);outline-offset:3px}
+
+/* ---------- botão delicado (voltar) ---------- */
+.pill{
+  position:absolute;left:50%;transform:translateX(-50%);
+  display:inline-flex;align-items:center;justify-content:center;gap:.7em;
+  min-height:38px;padding:4px 22px;
+  border-radius:999px;border:1px solid rgba(201,162,75,.95);
+  background:linear-gradient(180deg,rgba(250,236,200,.94),rgba(226,200,143,.9));
+  box-shadow:0 4px 14px rgba(40,8,14,.4),inset 0 1px 0 rgba(255,255,255,.7);
+  color:var(--wine);font-family:var(--display);font-weight:500;font-size:13px;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;cursor:pointer;
+}
+.pill i{font-style:normal;font-size:.8em;opacity:.7}
+.pill:active{transform:translateX(-50%) scale(.97)}
+.pill:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+#gifts .pill{top:95%}
+
+/* ---------- música ---------- */
+.music{
+  position:fixed;z-index:30;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));
+  width:44px;height:44px;border-radius:50%;padding:0;cursor:pointer;
+  border:1.5px solid var(--gold);
+  background:linear-gradient(180deg,rgba(250,236,200,.95),rgba(226,200,143,.92));
+  box-shadow:0 4px 14px rgba(30,6,10,.5);color:var(--wine);
+  display:grid;place-items:center;
+}
+.music svg{width:21px;height:21px;display:block}
+.music .off{display:none}
+.music[aria-pressed="false"] .on{display:none}
+.music[aria-pressed="false"] .off{display:block}
+.music:focus-visible{outline:3px solid var(--gold-light);outline-offset:2px}
+
+/* ---------- janelas (RSVP e localização) ---------- */
+.overlay{
+  position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;
+  background:rgba(30,6,12,.72);overflow-y:auto;
+  opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s;
+}
+.overlay.open{opacity:1;visibility:visible;transition:opacity .35s ease,visibility 0s}
+.card{
+  position:relative;width:min(100%,380px);padding:30px 24px 24px;text-align:center;
+  border-radius:18px;border:2px solid var(--gold);
+  background:
+    radial-gradient(120% 80% at 50% 0%,rgba(255,255,255,.45),rgba(255,255,255,0) 60%),
+    linear-gradient(180deg,#f7ead0 0%,#e8d09b 100%);
+  box-shadow:0 0 0 4px rgba(94,18,32,.9),0 0 0 5px var(--gold),0 24px 60px rgba(10,0,4,.65);
+  transform:translateY(14px) scale(.97);transition:transform .35s ease;
+}
+.overlay.open .card{transform:none}
+.card .orn{display:block;margin:0 auto 6px;color:var(--gold);font-size:18px;letter-spacing:.6em;text-indent:.6em}
+.card h2{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:23px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--wine)}
+.card p{margin:0 0 16px;font-size:20px;line-height:1.3;font-weight:600;color:#4a1220}
+.card .place{font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:.04em;color:var(--wine);margin:6px 0 4px}
+.card .when{font-style:italic;font-size:21px;margin:0 0 6px}
+.rule{height:1px;margin:12px auto 16px;width:70%;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+form{display:grid;gap:14px;text-align:left}
+label,.legend{display:block;font-family:var(--display);font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--wine);margin-bottom:5px}
+input[type=text]{
+  width:100%;min-height:48px;padding:8px 14px;border-radius:10px;
+  border:1.5px solid #a98a45;background:rgba(255,250,236,.85);
+  font-size:20px;font-weight:600;color:var(--wine);
+}
+input[type=text]::placeholder{color:#a98a85;font-weight:500}
+input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.choice span{
+  display:flex;align-items:center;justify-content:center;text-align:center;min-height:50px;padding:6px 8px;border-radius:10px;
+  border:1.5px solid #a98a45;background:rgba(255,250,236,.7);font-size:18px;font-weight:700;line-height:1.1;
+}
+.choice input:checked+span{background:linear-gradient(180deg,#7d1b2e,var(--wine));color:var(--gold-light);border-color:var(--wine)}
+.choice input:focus-visible+span{outline:3px solid rgba(94,18,32,.55);outline-offset:2px}
+.stepper{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.stepper button{
+  width:48px;height:48px;border-radius:50%;border:1.5px solid #a98a45;background:rgba(255,250,236,.8);
+  font-size:26px;line-height:1;font-weight:700;color:var(--wine);cursor:pointer;padding:0;
+}
+.stepper output{flex:1;text-align:center;font-size:26px;font-weight:700}
+.stepper button:focus-visible{outline:3px solid rgba(94,18,32,.55);outline-offset:2px}
+.err{margin:-6px 0 0;color:#9b1c2e;font-size:17px;font-weight:700;min-height:0}
+
+.actions{display:grid;gap:10px;margin-top:6px}
+.btn{
+  display:flex;align-items:center;justify-content:center;min-height:50px;padding:8px 20px;border-radius:999px;
+  font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;
+}
+.btn.primary{border:1px solid var(--gold);color:var(--gold-light);background:linear-gradient(180deg,#7d1b2e,var(--wine-deep));box-shadow:0 6px 16px rgba(60,8,18,.4)}
+.btn.ghost{border:1.5px solid #a98a45;background:transparent;color:var(--wine)}
+.btn:focus-visible{outline:3px solid var(--wine);outline-offset:2px}
+
+.screen:not(.active) *,.screen:not(.active) *::after{animation-play-state:paused!important}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .hot::after{opacity:0}
+}
+</style>
+</head>
+<body>
+
+<!-- 1 · capa -->
+<section class="screen active" id="cover" role="button" tabindex="0" aria-label="Clique para abrir o convite">
+  <div class="bg" style="background-image:url(assets/capa.jpg)"></div>
+  <div class="stage">
+    <img src="assets/capa.jpg" alt="Livro encantado com uma rosa sob a redoma de vidro. Clique para abrir." width="941" height="1672" decoding="async" fetchpriority="high">
+    <span class="glow" aria-hidden="true"></span>
+    <span class="tap" aria-hidden="true"></span>
+  </div>
+</section>
+
+<!-- 2 · vídeo de abertura -->
+<section class="screen" id="video" aria-hidden="true">
+  <div class="bg" style="background-image:url(assets/capa.jpg)"></div>
+  <div class="stage">
+    <video id="vid" src="assets/abertura.mp4" poster="assets/capa.jpg" muted playsinline webkit-playsinline preload="auto"></video>
+  </div>
+  <button class="skip" id="skip" type="button">Pular</button>
+</section>
+
+<!-- 3 · informações -->
+<section class="screen" id="info" aria-hidden="true">
+  <div class="bg" style="background-image:url(assets/informacoes.jpg)"></div>
+  <div class="stage">
+    <img src="assets/informacoes.jpg" alt="Convite de Marcella, 13 anos. 18 de dezembro, às 18 horas. Toque nos ícones: confirmar presença, localização ou dicas de presentes." width="1080" height="1920" decoding="async">
+    <button class="hot" id="btn-confirm" type="button" style="--x:42.8%;--y:66.6%;--d:0s" aria-label="Confirmar presença"></button>
+    <button class="hot" id="btn-map" type="button" style="--x:58.8%;--y:66.2%;--d:.5s" aria-label="Localização: Palácio das Festas"></button>
+    <button class="hot" id="btn-gifts" type="button" style="--x:74.8%;--y:66.7%;--d:1s" aria-label="Dicas de presentes"></button>
+  </div>
+</section>
+
+<!-- 4 · presentes -->
+<section class="screen" id="gifts" aria-hidden="true">
+  <div class="bg" style="background-image:url(assets/presentes.jpg)"></div>
+  <div class="stage">
+    <img src="assets/presentes.jpg" alt="Dicas de presentes: livros de contos, perfumes suaves, body splash da Wepink, maquiagens Boca Rosa, roupas tamanho 14 ou P, calçados 36 e acessórios." width="941" height="1672" decoding="async">
+    <button class="pill" id="btn-back" type="button"><i>✦</i>Voltar<i>✦</i></button>
+  </div>
+</section>
+
+<!-- música -->
+<button class="music" id="music" type="button" aria-pressed="true" aria-label="Pausar música" hidden>
+  <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3" fill="currentColor"/><circle cx="17" cy="16" r="3" fill="currentColor"/></svg>
+  <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3" fill="currentColor"/><circle cx="17" cy="16" r="3" fill="currentColor"/><path d="M3 3l18 18"/></svg>
+</button>
+<audio id="audio" src="assets/musica.m4a" loop preload="auto"></audio>
+
+<!-- janela: confirmar presença -->
+<div class="overlay" id="dlg-rsvp" aria-hidden="true">
+  <div class="card" role="dialog" aria-modal="true" aria-labelledby="rsvp-title">
+    <!-- formulário -->
+    <div id="rsvp-form-wrap">
+      <span class="orn" aria-hidden="true">✦ ✦ ✦</span>
+      <h2 id="rsvp-title">Confirmar presença</h2>
+      <div class="rule"></div>
+      <form id="rsvp-form" novalidate>
+        <div>
+          <label for="rsvp-nome">Seu nome</label>
+          <input type="text" id="rsvp-nome" name="nome" placeholder="Nome e sobrenome" autocomplete="name" maxlength="60">
+        </div>
+        <div>
+          <span class="legend" id="lg-resp">Você vai?</span>
+          <div class="choices" role="radiogroup" aria-labelledby="lg-resp">
+            <label class="choice"><input type="radio" name="resp" value="sim" checked><span>Sim, eu vou!</span></label>
+            <label class="choice"><input type="radio" name="resp" value="nao"><span>Não poderei ir</span></label>
+          </div>
+        </div>
+        <div id="qtd-wrap">
+          <span class="legend" id="lg-qtd">Quantas pessoas (com você)?</span>
+          <div class="stepper" role="group" aria-labelledby="lg-qtd">
+            <button type="button" id="qtd-minus" aria-label="Diminuir">−</button>
+            <output id="qtd" aria-live="polite">1</output>
+            <button type="button" id="qtd-plus" aria-label="Aumentar">+</button>
+          </div>
+        </div>
+        <p class="err" id="rsvp-err" role="alert" hidden>Escreva seu nome para continuar.</p>
+        <div class="actions">
+          <button class="btn primary" type="submit">Enviar confirmação</button>
+          <button class="btn ghost" type="button" data-close>Fechar</button>
+        </div>
+      </form>
+    </div>
+    <!-- agradecimento -->
+    <div id="rsvp-thanks" hidden>
+      <span class="orn" aria-hidden="true">✦ ✦ ✦</span>
+      <h2 id="thanks-title">Que alegria!</h2>
+      <div class="rule"></div>
+      <p id="thanks-text"></p>
+      <div class="actions">
+        <a class="btn primary" id="thanks-wa" target="_blank" rel="noopener noreferrer" href="#" hidden>Avisar no WhatsApp</a>
+        <button class="btn ghost" type="button" data-close>Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- janela: localização -->
+<div class="overlay" id="dlg-map" aria-hidden="true">
+  <div class="card" role="dialog" aria-modal="true" aria-labelledby="map-title">
+    <span class="orn" aria-hidden="true">✦ ✦ ✦</span>
+    <h2 id="map-title">Localização</h2>
+    <div class="rule"></div>
+    <div class="place" id="map-place">Palácio das Festas</div>
+    <p class="when" id="map-addr" hidden></p>
+    <p class="when">18 de dezembro · às 18h</p>
+    <div class="actions">
+      <a class="btn primary" id="map-open" target="_blank" rel="noopener noreferrer" href="#">Abrir no mapa</a>
+      <button class="btn ghost" type="button" data-close>Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ====== dados do convite (edite aqui) ====== */
+  var CONFIG={
+    nome:'Marcella',
+    local:'Palácio das Festas',
+    endereco:'',          /* ex.: 'Rua Tal, 123 - Bairro, Cidade' (ajuda o mapa a achar o lugar certo) */
+    data:'18 de dezembro',
+    hora:'18h',
+    whatsapp:''           /* ex.: '5585999999999'. Se preencher, depois da confirmação aparece o botão "Avisar no WhatsApp" */
+  };
+
+  var $=function(s){return document.querySelector(s)};
+  var screens={cover:$('#cover'),video:$('#video'),info:$('#info'),gifts:$('#gifts')};
+  var vid=$('#vid'),audio=$('#audio'),musicBtn=$('#music'),skip=$('#skip');
+  var current='cover',started=false,wantMusic=false,lastFocus=null,openOverlay=null;
+
+  /* troca de tela */
+  function go(name){
+    current=name;
+    Object.keys(screens).forEach(function(k){
+      var el=screens[k],on=k===name;
+      el.classList.toggle('active',on);
+      el.setAttribute('aria-hidden',on?'false':'true');
+      if('inert' in el) el.inert=!on;
+    });
+  }
+  go('cover');
+
+  /* pré-carrega as próximas telas */
+  ['assets/informacoes.jpg','assets/presentes.jpg'].forEach(function(src){var i=new Image();i.src=src});
+
+  /* ====== música (continua tocando durante todo o convite) ====== */
+  function setMusicUI(playing){
+    musicBtn.setAttribute('aria-pressed',playing?'true':'false');
+    musicBtn.setAttribute('aria-label',playing?'Pausar música':'Tocar música');
+  }
+  function playMusic(){
+    wantMusic=true;
+    var p=audio.play();
+    if(p&&p.then){p.then(function(){setMusicUI(true)},function(){setMusicUI(false)})}else{setMusicUI(!audio.paused)}
+  }
+  musicBtn.addEventListener('click',function(){
+    if(!audio.paused){wantMusic=false;audio.pause();setMusicUI(false)}else{playMusic()}
+  });
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden&&wantMusic&&audio.paused&&started){playMusic()}
+  });
+  /* suaviza a emenda quando a música recomeça */
+  var canFade=false;
+  try{audio.volume=.5;canFade=audio.volume===.5;audio.volume=1}catch(e){}
+  if(canFade){
+    var faded=false,lastV=1;
+    setInterval(function(){
+      var d=audio.duration,t=audio.currentTime;
+      if(!d||!isFinite(d)||audio.paused)return;
+      var v=1;
+      if(d-t<1.2){v=Math.max(0,(d-t)/1.2);faded=true}
+      else if(faded&&t<1.2){v=Math.min(1,t/1.2)}
+      if(Math.abs(v-lastV)>.02){audio.volume=v;lastV=v}
+    },100);
+  }
+
+  /* ====== fluxo ====== */
+  function toInfo(){
+    if(current==='video'){
+      go('info');vid.pause();
+      setTimeout(function(){try{vid.removeAttribute('src');vid.removeAttribute('poster');vid.load()}catch(e){}},1500);
+    }
+  }
+  function start(){
+    if(started)return;
+    started=true;
+    go('video');
+    musicBtn.hidden=false;
+    playMusic();
+    try{vid.currentTime=0}catch(e){}
+    var p=vid.play();
+    if(p&&p.catch){p.catch(toInfo)}
+    setTimeout(function(){skip.classList.add('show')},1500);
+    setTimeout(function(){if(current==='video'&&vid.currentTime<.1)toInfo()},7000);
+  }
+  screens.cover.addEventListener('click',start);
+  screens.cover.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();start()}});
+  vid.addEventListener('ended',toInfo);
+  vid.addEventListener('error',toInfo);
+  skip.addEventListener('click',toInfo);
+
+  $('#btn-gifts').addEventListener('click',function(){go('gifts')});
+  $('#btn-back').addEventListener('click',function(){go('info')});
+
+  /* ====== janelas ====== */
+  function openDlg(el,focusSel){
+    lastFocus=document.activeElement;openOverlay=el;
+    el.classList.add('open');el.setAttribute('aria-hidden','false');
+    setTimeout(function(){var f=el.querySelector(focusSel);if(f)f.focus()},60);
+  }
+  function closeDlg(){
+    if(!openOverlay)return;
+    openOverlay.classList.remove('open');openOverlay.setAttribute('aria-hidden','true');
+    openOverlay=null;
+    if(lastFocus&&lastFocus.focus)lastFocus.focus();
+  }
+  document.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',closeDlg)});
+  document.querySelectorAll('.overlay').forEach(function(o){o.addEventListener('click',function(e){if(e.target===o)closeDlg()})});
+  document.addEventListener('keydown',function(e){
+    if(!openOverlay)return;
+    if(e.key==='Escape'){closeDlg();return}
+    if(e.key==='Tab'){
+      var f=[].filter.call(openOverlay.querySelectorAll('button,a[href],input,select'),function(n){return !n.disabled&&n.offsetParent!==null&&n.type!=='hidden'});
+      if(!f.length)return;
+      var i=f.indexOf(document.activeElement),first=f[0],last=f[f.length-1];
+      if(e.shiftKey&&(i<=0)){e.preventDefault();last.focus()}
+      else if(!e.shiftKey&&(i===f.length-1||i<0)){e.preventDefault();first.focus()}
+    }
+  });
+
+  /* ====== localização ====== */
+  var q=CONFIG.local+(CONFIG.endereco?', '+CONFIG.endereco:'');
+  $('#map-open').href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
+  $('#map-place').textContent=CONFIG.local;
+  if(CONFIG.endereco){var a=$('#map-addr');a.textContent=CONFIG.endereco;a.hidden=false}
+  $('#btn-map').addEventListener('click',function(){openDlg($('#dlg-map'),'#map-open')});
+
+  /* ====== confirmar presença (RSVP dentro do convite) ====== */
+  var rsvp=$('#dlg-rsvp'),form=$('#rsvp-form'),nome=$('#rsvp-nome'),err=$('#rsvp-err');
+  var qtdEl=$('#qtd'),qtdWrap=$('#qtd-wrap'),qtd=1;
+  function setQtd(n){qtd=Math.max(1,Math.min(10,n));qtdEl.textContent=qtd}
+  $('#qtd-minus').addEventListener('click',function(){setQtd(qtd-1)});
+  $('#qtd-plus').addEventListener('click',function(){setQtd(qtd+1)});
+  function resp(){return form.querySelector('input[name=resp]:checked').value}
+  form.querySelectorAll('input[name=resp]').forEach(function(r){
+    r.addEventListener('change',function(){qtdWrap.hidden=resp()==='nao'});
+  });
+  nome.addEventListener('input',function(){err.hidden=true});
+
+  $('#btn-confirm').addEventListener('click',function(){
+    $('#rsvp-thanks').hidden=true;$('#rsvp-form-wrap').hidden=false;err.hidden=true;
+    openDlg(rsvp,'#rsvp-nome');
+  });
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=nome.value.replace(/\s+/g,' ').trim();
+    if(n.length<2){err.hidden=false;nome.focus();return}
+    var vai=resp()==='sim';
+    var first=n.split(' ')[0];
+    var msg,titulo,texto;
+    if(vai){
+      titulo='Que alegria, '+first+'!';
+      texto='Presença confirmada para '+qtd+(qtd===1?' pessoa':' pessoas')+'. Esperamos você em '+CONFIG.data+', às '+CONFIG.hora+', no '+CONFIG.local+'.';
+      msg='Olá! Confirmo presença no aniversário de 13 anos da '+CONFIG.nome+' ('+CONFIG.data+', às '+CONFIG.hora+', '+CONFIG.local+'). Nome: '+n+'. Pessoas: '+qtd+'.';
+    }else{
+      titulo='Obrigada por avisar, '+first+'!';
+      texto='Sentiremos a sua falta. Seu recado foi registrado com carinho.';
+      msg='Olá! Infelizmente não poderei ir ao aniversário de 13 anos da '+CONFIG.nome+'. Nome: '+n+'.';
+    }
+    $('#thanks-title').textContent=titulo;
+    $('#thanks-text').textContent=texto;
+    var wa=$('#thanks-wa');
+    if(CONFIG.whatsapp){wa.href='https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent(msg);wa.hidden=false}else{wa.hidden=true}
+    $('#rsvp-form-wrap').hidden=true;$('#rsvp-thanks').hidden=false;
+    var f=wa.hidden?$('#rsvp-thanks [data-close]'):wa;if(f)f.focus();
+  });
+})();
+</script>
+</body>
+</html>
