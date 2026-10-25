@@ -33,7 +33,7 @@ button,input,select{font:inherit;color:inherit}
 .screen{
   position:fixed;inset:0;overflow:hidden;
   opacity:0;visibility:hidden;
-  transition:opacity .8s ease,visibility 0s linear .8s;
+  transition:opacity 0s linear .8s,visibility 0s linear .8s;
 }
 .screen.active{opacity:1;visibility:visible;transition:opacity .8s ease,visibility 0s}
 /* fundo desfocado só aparece quando a tela é mais larga que o convite (tablet / computador) */
@@ -56,18 +56,11 @@ button,input,select{font:inherit;color:inherit}
   animation:glow 3.4s ease-in-out infinite;
 }
 @keyframes glow{0%,100%{opacity:.2;transform:translate(-50%,-50%) scale(.9)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
-.tap{
-  position:absolute;left:54.2%;top:71.3%;width:41%;height:5.4%;transform:translate(-50%,-50%);
-  border-radius:10px;pointer-events:none;
-  box-shadow:0 0 0 0 rgba(255,225,150,.0);
-  animation:tap 2.8s ease-in-out infinite;
-}
-@keyframes tap{0%,100%{box-shadow:0 0 6px 0 rgba(255,225,150,.15)}50%{box-shadow:0 0 22px 6px rgba(255,225,150,.6)}}
 
 /* ---------- vídeo ---------- */
 #video{background:#1a060b}
 .skip{
-  position:fixed;left:50%;transform:translateX(-50%);
+  position:fixed;z-index:40;left:50%;transform:translateX(-50%);
   bottom:calc(18px + env(safe-area-inset-bottom,0px));
   min-height:44px;padding:8px 24px;border-radius:999px;
   border:1px solid rgba(236,208,138,.7);background:rgba(42,11,18,.55);
@@ -83,12 +76,6 @@ button,input,select{font:inherit;color:inherit}
   transform:translate(-50%,-50%);border-radius:50%;border:0;padding:0;margin:0;
   background:transparent;cursor:pointer;display:block;text-decoration:none;
 }
-.hot::after{
-  content:"";position:absolute;inset:-4%;border-radius:50%;pointer-events:none;
-  border:2px solid rgba(201,162,75,.95);
-  opacity:0;animation:ring 3.4s ease-out infinite;animation-delay:var(--d,0s);
-}
-@keyframes ring{0%{opacity:0;transform:scale(.85)}22%{opacity:.95}100%{opacity:0;transform:scale(1.25)}}
 .hot:active{background:rgba(201,162,75,.25)}
 .hot:focus-visible{outline:3px solid var(--wine);outline-offset:3px}
 
@@ -198,7 +185,6 @@ input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
   <div class="stage">
     <img src="assets/capa.jpg" alt="Livro encantado com uma rosa sob a redoma de vidro. Clique para abrir." width="941" height="1672" decoding="async" fetchpriority="high">
     <span class="glow" aria-hidden="true"></span>
-    <span class="tap" aria-hidden="true"></span>
   </div>
 </section>
 
@@ -326,6 +312,7 @@ input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
     Object.keys(screens).forEach(function(k){
       var el=screens[k],on=k===name;
       el.classList.toggle('active',on);
+      el.style.zIndex=on?10:5;
       el.setAttribute('aria-hidden',on?'false':'true');
       if('inert' in el) el.inert=!on;
     });
@@ -370,6 +357,7 @@ input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
   function toInfo(){
     if(current==='video'){
       go('info');vid.pause();
+      skip.classList.remove('show');skip.hidden=true;
       setTimeout(function(){try{vid.removeAttribute('src');vid.removeAttribute('poster');vid.load()}catch(e){}},1500);
     }
   }
@@ -382,7 +370,7 @@ input[type=text]:focus{outline:3px solid rgba(94,18,32,.45);outline-offset:1px}
     try{vid.currentTime=0}catch(e){}
     var p=vid.play();
     if(p&&p.catch){p.catch(toInfo)}
-    setTimeout(function(){skip.classList.add('show')},1500);
+    setTimeout(function(){if(current==='video')skip.classList.add('show')},1500);
     setTimeout(function(){if(current==='video'&&vid.currentTime<.1)toInfo()},7000);
   }
   screens.cover.addEventListener('click',start);
