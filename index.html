@@ -354,13 +354,32 @@ button,input,select{font:inherit;color:inherit}
   }
 
   /* ====== fluxo ====== */
+  var infoImg=document.querySelector('#info .stage img'),leaving=false;
   function toInfo(){
-    if(current==='video'){
-      go('info');vid.pause();
-      skip.classList.remove('show');skip.hidden=true;
-      setTimeout(function(){try{vid.removeAttribute('src');vid.removeAttribute('poster');vid.load()}catch(e){}},1500);
+    if(current!=='video'||leaving)return;
+    leaving=true;
+    /* para o vídeo NA HORA, antes dos últimos quadros (o arquivo termina com ~4 quadros pretos) */
+    try{vid.pause()}catch(e){}
+    skip.classList.remove('show');skip.hidden=true;
+    /* só troca de tela quando a imagem das informações já está pronta, para não piscar escuro */
+    var done=false;
+    function show(){
+      if(done)return;done=true;
+      go('info');
+      setTimeout(function(){try{vid.removeAttribute('src');vid.removeAttribute('poster');vid.load()}catch(e){}},2000);
     }
+    try{
+      if(infoImg&&infoImg.decode){infoImg.decode().then(show,show);setTimeout(show,700)}else{show()}
+    }catch(e){show()}
   }
+  /* corta antes do fim: confere quadro a quadro se faltam menos de 0,25 s */
+  function watchEnd(){
+    if(current!=='video'||leaving)return;
+    if(vid.duration&&vid.currentTime>=vid.duration-.25){toInfo();return}
+    requestAnimationFrame(watchEnd);
+  }
+  vid.addEventListener('playing',function(){requestAnimationFrame(watchEnd)});
+  vid.addEventListener('timeupdate',function(){if(vid.duration&&vid.currentTime>=vid.duration-.25)toInfo()});
   function start(){
     if(started)return;
     started=true;
